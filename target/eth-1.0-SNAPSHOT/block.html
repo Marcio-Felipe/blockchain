@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Block Number</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+</head>
+<body>
+<h1>Número Atual do Bloco</h1>
+<p id="blockNumber">Carregando...</p>
+
+<script>
+    // Verifica se o Web3 está injetado (por exemplo, pelo MetaMask)
+
+        var web3 = new Web3("http://127.0.0.1:7545");
+
+    // Função para obter o número do bloco atual
+    async function getBlockNumber() {
+        try {
+            const blockNumber = await web3.eth.getBlockNumber();
+            document.getElementById('blockNumber').innerText = `Número do Bloco Atual: ${blockNumber}`;
+        } catch (error) {
+            console.error('Erro ao obter o número do bloco:', error);
+            document.getElementById('blockNumber').innerText = 'Erro ao obter o número do bloco. Verifique o console para mais detalhes.';
+        }
+    }
+
+    // Chama a função ao carregar a página
+    window.onload = getBlockNumber;
+</script>
+</body>
+</html>

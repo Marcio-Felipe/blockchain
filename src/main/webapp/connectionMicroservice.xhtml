@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Conectar ao Microserviço</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #2c3e50, #34495e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #34495e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #f1c40f;
+            margin-bottom: 20px;
+        }
+
+        h:commandButton {
+            background-color: transparent;
+            color: #2c3e50;
+            padding: 12px;
+            border: 2px solid #f1c40f;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h:commandButton:hover {
+            background-color: #f1c40f;
+            color: #2c3e50;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .message {
+            margin-top: 20px;
+            color: #ecf0f1;
+        }
+
+        .response {
+            margin-top: 20px;
+            color: #ecf0f1;
+            text-align: left;
+        }
+
+        .response div {
+            margin: 5px 0;
+            border: 1px solid #f1c40f;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Conectar ao Microserviço</h1>
+    <h:form>
+        <h:commandButton value="Get Block Number" action="#{connectionBean.getBlockNumber}" />
+        <h:outputText id="message" value="#{connectionBean.message}" styleClass="message"/>
+
+        <h:commandButton value="Get a contract bytecode" action="#{connectionBean.getBlockNumber}" />
+        <h:outputText id="message" value="#{connectionBean.message}" styleClass="message"/>
+
+        <h:commandButton value="Get a contract storage" action="#{connectionBean.getContractByteCode}" />
+        <h:outputText id="message" value="#{connectionBean.message}" styleClass="message"/>
+
+        <h:panelGroup rendered="#{not empty connectionBean.response}" styleClass="response">
+            <div><strong>ID:</strong> #{connectionBean.response.id}</div>
+            <div><strong>JSON-RPC:</strong> #{connectionBean.response.jsonrpc}</div>
+            <div><strong>Result:</strong> #{connectionBean.response.result}</div>
+        </h:panelGroup>
+    </h:form>
+
+    <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel for="contractAddress" value="Contract Address: " />
+            <h:inputText id="contractAddress" value="#{connectionBean.contractAddress}" />
+            <h:commandButton value="Get Contract Bytecode">
+                <f:actionListener binding="#{connectionBean.getContractByteCode(connectionBean.contractAddress)}" />
+            </h:commandButton>
+        </h:panelGrid>
+
+        <!-- Exibe a mensagem de retorno -->
+        <h:outputText id="messagecontract" value="#{connectionBean.message}" styleClass="message" />
+    </h:form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Mining Status</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.7.3/dist/web3.min.js"></script>
+</head>
+<body>
+<h1>Blockchain Mining Status</h1>
+<button onclick="checkMiningStatus()">Is the Blockchain Mining?</button>
+<p id="miningStatus">Click the button to check the status.</p>
+<h1>Blockchain Info</h1>
+<p>Clique no botão abaixo para ver o número atual do bloco na blockchain.</p>
+
+<button onclick="redirectToBlock()">Ver Número do Bloco</button>
+<div>
+    <button onclick="redirectToContract()">criar contrato</button>
+
+</div>
+
+<div>
+    <button onclick="redirectToTransactionETH()">enviar eth</button>
+
+</div>
+
+<script>
+    function redirectToBlock() {
+        // Redireciona para a página block.html
+        window.location.href = "block.html";
+    }
+
+    function redirectToContract() {
+        // Redireciona para a página block.html
+        window.location.href = "createcontract.html";
+    }
+
+    function redirectToTransactionETH() {
+        // Redireciona para a página block.html
+        window.location.href = "transactionETH.html";
+    }
+</script>
+
+<script>
+    // Verifica se o Web3 está injetado (por exemplo, pelo MetaMask)
+
+    var web3 = new Web3("http://127.0.0.1:7545");
+
+    // Função para verificar se a blockchain está minerando
+    async function checkMiningStatus() {
+        try {
+            const isMining = await web3.eth.isMining();
+            document.getElementById('miningStatus').innerText = isMining ? 'Yes, the blockchain is mining!' : 'No, the blockchain is not mining.';
+        } catch (error) {
+            console.error('Error checking mining status:', error);
+            document.getElementById('miningStatus').innerText = 'Error checking mining status. Check the console for more details.';
+        }
+    }
+</script>
+</body>
+</html>
